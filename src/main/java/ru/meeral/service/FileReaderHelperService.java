@@ -52,11 +52,9 @@ public class FileReaderHelperService {
                     while ((line = reader.readLine()) != null) {
                         try {
                             if (line.matches("-?\\d+")) {
-                                long num = Long.parseLong(line);
                                 integerData.add(line);
                             } else {
                                 try {
-                                    double num = Double.parseDouble(line);
                                     floatData.add(line);
 
                                 } catch (NumberFormatException e) {
