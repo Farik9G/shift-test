@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="shiftTest:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/shiftTest_jar</output-path>
+    <root id="archive" name="shiftTest.jar">
+      <element id="module-output" name="shiftTest" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jetbrains/annotations/24.1.0/annotations-24.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/commons-cli/commons-cli/1.8.0/commons-cli-1.8.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
