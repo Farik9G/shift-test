@@ -23,18 +23,18 @@
 
 # Usage
 
-You can use the **-o** option to specify the path for the results. 
+Вы можете использовать опцию **-o**, чтобы указать путь к результатам.
 
-Option **-p** specifies the prefix of output file names. For example **-o /some/path -p result_** sets the output to
-files **/some/path/result_integers.txt**, **/some/path/result_strings.txt** and etc. 
+Опция **-p** указывает префикс имен выходных файлов. Например, **-o /some/path -p result_** устанавливает вывод в
+файлы **/some/path/result_integers.txt**, **/some/path/result_strings.txt** и т. д.
 
-During the data filtering process, statistics are collected for each type of data.
-Statistics are supported in two types: short and full. Selecting statistics
-done with the **-s** and **-f** options, respectively. Brief statistics contain only
-number of elements written to outgoing files. Full statistics for numbers
-additionally contains the minimum and maximum values, sum and average.
-Complete statistics for rows, in addition to their number, also contains the size of the row itself.
-the shortest line and the longest. Statistics for each data type are displayed in the console.
+В процессе фильтрации данных собирается статистика для каждого типа данных.
+Статистика поддерживается в двух видах: краткая и полная. Выбор статистики
+делается с помощью опций **-s** и **-f** соответственно. Краткая статистика содержит только
+количество элементов, записанных в исходящие файлы. Полная статистика по числам
+дополнительно содержит минимальное и максимальное значения, сумму и среднее значение.
+Полная статистика по строкам, помимо их количества, содержит еще и размер самой строки.
+самую короткую и самую длинную строки. Статистика по каждому типу данных отображается в консоли.
 
-Example of running the utility:
+Пример запуска утилиты:
 **java -jar ShiftTest.jar -s -a -p sample- in1.txt in2.txt**
