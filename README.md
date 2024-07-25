@@ -1,4 +1,4 @@
-**This program accepts text files as input and filters the content into output files by data type.**
+**Эта программа принимает текстовые файлы в качестве входных данных и фильтрует их содержимое в выходные файлы по типу данных.**
 
 # Requirements
 ### JDK 17.0.10
