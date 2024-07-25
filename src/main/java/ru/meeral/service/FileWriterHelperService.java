@@ -26,9 +26,9 @@ public class FileWriterHelperService {
         File outputDirectory = new File(outputDir);
         if (!outputDirectory.exists()) {
             if (outputDirectory.mkdirs()) {
-                System.out.println("Directory created: " + outputDir);
+                System.out.printf("Directory created: %s", outputDir);
             } else {
-                System.err.println("Failed to create directory: " + outputDir);
+                System.err.printf("Failed to create directory: %s", outputDir);
                 return;
             }
         }
@@ -59,7 +59,7 @@ public class FileWriterHelperService {
 
             System.out.println("Data filtered and written to output files successfully.");
         } catch (IOException e) {
-            System.out.println("Error writing data to file: " + e.getMessage());
+            System.out.printf("Error writing data to file: %s", e.getMessage());
         }
 
     }

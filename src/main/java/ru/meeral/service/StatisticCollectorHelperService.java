@@ -1,4 +1,5 @@
 package ru.meeral.service;
+
 import ru.meeral.entity.ReaderHelperResponse;
 
 import lombok.*;
@@ -6,20 +7,15 @@ import lombok.experimental.FieldDefaults;
 
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.List;
+import java.util.logging.Logger;
 
 
-@Getter
-@Setter
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class StatisticCollectorHelperService {
     @NonNull
     ReaderHelperResponse response;
-
-    List<String> integerData;
-    List<String> floatData;
-    List<String> stringData;
+    static final Logger log = Logger.getLogger(StatisticCollectorHelperService.class.getName());
 
     int intCount;
     int floatCount;
@@ -36,45 +32,42 @@ public class StatisticCollectorHelperService {
     double maxFloat;
 
     public void initializeStatisticsCollector() {
-        setIntegerData(response.getIntegerData());
-        setFloatData(response.getFloatData());
-        setStringData(response.getStringData());
 
-        setIntCount(integerData.size());
-        setFloatCount(floatData.size());
-        setStringCount(stringData.size());
+        intCount = response.getIntegerData().size();
+        floatCount = response.getFloatData().size();
+        stringCount = response.getStringData().size();
 
-        setIntSum(integerData.stream().mapToLong(Long::parseLong).sum());
-        setFloatSum(floatData.stream().mapToDouble(Double::parseDouble).sum());
+        intSum = response.getIntegerData().stream().mapToLong(Long::parseLong).sum();
+        floatSum = response.getFloatData().stream().mapToDouble(Double::parseDouble).sum();
 
-        if (!stringData.isEmpty()) {
-            setLongestString(Collections.max(stringData, Comparator.comparingInt(String::length)).length());
-            setShortestString(Collections.min(stringData, Comparator.comparingInt(String::length)).length());
+        if (!response.getStringData().isEmpty()) {
+            longestString = Collections.max(response.getStringData(), Comparator.comparingInt(String::length)).length();
+            shortestString = Collections.min(response.getStringData(), Comparator.comparingInt(String::length)).length();
         }
-        if (!integerData.isEmpty()) {
-            minInteger = Collections.min(integerData.stream().map(Long::parseLong).toList());
-            maxInteger = Collections.max(integerData.stream().map(Long::parseLong).toList());
+        if (!response.getIntegerData().isEmpty()) {
+            minInteger = Collections.min(response.getIntegerData().stream().map(Long::parseLong).toList());
+            maxInteger = Collections.max(response.getIntegerData().stream().map(Long::parseLong).toList());
         }
-        if (!floatData.isEmpty()) {
-            minFloat = Collections.min(floatData.stream().map(Double::parseDouble).toList());
-            maxFloat = Collections.max(floatData.stream().map(Double::parseDouble).toList());
+        if (!response.getFloatData().isEmpty()) {
+            minFloat = Collections.min(response.getFloatData().stream().map(Double::parseDouble).toList());
+            maxFloat = Collections.max(response.getFloatData().stream().map(Double::parseDouble).toList());
         }
     }
 
-    public void DisplayShortStats (){
-        System.out.println("Short statistics:");
-        System.out.println("Integers count: " + intCount);
-        System.out.println("Floats count: " + floatCount);
-        System.out.println("Strings count: " + stringCount);
+    public void displayShortStats() {
+        log.info("Short statistics:");
+        log.info(String.format("Integers count: %d", intCount));
+        log.info(String.format("Floats count: %d", floatCount));
+        log.info(String.format("Strings count: %d", stringCount));
     }
 
-    public void DisplayFullStats (){
-        System.out.println("Full statistics:");
-        System.out.println("Integers - Count: " + intCount + ", Min: " + minInteger + ", Max: " + maxInteger +
-                ", Sum: " + intSum + ", Avg: " + intSum / intCount);
-        System.out.println("Floats - Count: " + floatCount + ", Min: " + minFloat + ", Max: " + maxFloat +
-                ", Sum: " + floatSum + ", Avg: " + floatSum / floatCount);
-        System.out.println("Strings - Count: " + stringCount + ", Shortest: " + shortestString +
-                ", Longest: " + longestString);
+    public void displayFullStats() {
+        log.info("Full statistics:");
+        log.info(String.format("Integers - Count: %d, Min: %d, Max: %d, Sum: %f, Avg: %f",
+                intCount, minInteger, maxInteger, intSum, intSum / intCount));
+        log.info(String.format("Floats - Count: %d, Min: %f, Max: %f, Sum: %f, Avg: %f",
+                floatCount, minFloat, maxFloat, floatSum, floatSum / floatCount));
+        log.info(String.format("Strings - Count: %d, Shortest: %d, Longest: %d",
+                stringCount, shortestString, longestString));
     }
 }

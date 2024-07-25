@@ -1,4 +1,5 @@
 package ru.meeral.service;
+
 import org.apache.commons.cli.*;
 import ru.meeral.entity.ReaderHelperResponse;
 import ru.meeral.enums.OptionsValue;
@@ -14,8 +15,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @Getter
-@Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class FileReaderHelperService {
     String outputDir;
@@ -23,6 +23,7 @@ public class FileReaderHelperService {
     boolean append;
     boolean shortStats;
     boolean fullStats;
+
     public ReaderHelperResponse read(String[] cmdArgs) {
         List<String> integerData = new ArrayList<>();
         List<String> floatData = new ArrayList<>();
@@ -55,6 +56,7 @@ public class FileReaderHelperService {
                                 integerData.add(line);
                             } else {
                                 try {
+                                    Double.parseDouble(line);
                                     floatData.add(line);
 
                                 } catch (NumberFormatException e) {
@@ -66,11 +68,11 @@ public class FileReaderHelperService {
                         }
                     }
                 } catch (IOException e) {
-                    System.err.println("Error reading file: " + filePath + "\n" + e.getMessage());
+                    System.err.printf("Error reading file: %s%n%s", filePath, e.getMessage());
                 }
             }
         } catch (ParseException e) {
-            System.err.println("Error parsing command line arguments: " + e.getMessage());
+            System.err.printf("Error parsing command line arguments: %s", e.getMessage());
         }
 
         return new ReaderHelperResponse(integerData, floatData, stringData);
